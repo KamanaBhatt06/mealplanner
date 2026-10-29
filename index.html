@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Foodie - Recipe & Meal Planner</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #fffaf5;
+            color: #222;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+            height: 70px;
+            background-color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo img {
+    width: 200px;
+    height: 74px;
+    object-fit: contain;
+    display: block;
+}
+        
+
+        nav ul {
+            list-style: none;
+
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 15px;
+        }
+
+        nav ul li a:hover {
+            color: #d65a3a;
+        }
+
+        .login-btn {
+            background-color: #d65a3a;
+            color: white;
+
+            border: none;
+            padding: 11px 20px;
+
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+
+        /* ================= HERO ================= */
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px 50px;
+
+            background-color: #fff1e8;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: #d65a3a;
+        }
+
+        .hero p {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        .hero button {
+            padding: 13px 25px;
+            border: none;
+            border-radius: 25px;
+            background-color: #d65a3a;
+            color: white;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+
+        /* ================= SEARCH ================= */
+
+        .search-section {
+            text-align: center;
+            padding: 35px 20px 20px;
+        }
+
+        #searchInput {
+            width: 350px;
+            max-width: 90%;
+
+            padding: 14px 20px;
+
+            border: 1px solid #ddd;
+            border-radius: 30px;
+
+            outline: none;
+            font-size: 15px;
+        }
+
+
+        /* ================= CATEGORY ================= */
+
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            padding: 20px;
+        }
+
+        .category-btn {
+            border: 1px solid #ddd;
+            background-color: white;
+
+            padding: 10px 20px;
+
+            border-radius: 25px;
+
+            cursor: pointer;
+        }
+
+        .category-btn:hover {
+            background-color: #d65a3a;
+            color: white;
+        }
+
+
+        /* ================= RECIPES ================= */
+
+        .recipes-section {
+            width: 90%;
+            max-width: 1150px;
+
+            margin: 30px auto 70px;
+        }
+
+        .section-small-title {
+            color: #d65a3a;
+            font-size: 13px;
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+        .recipes-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+
+        /* THIS FIXES YOUR MAIN PROBLEM */
+
+        .recipe-container {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 25px;
+
+            width: 100%;
+        }
+
+
+        /* ================= RECIPE CARD ================= */
+
+        .recipe-card {
+            background-color: white;
+
+            border-radius: 15px;
+
+            padding: 15px;
+
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+
+            min-height: 350px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            transition: 0.2s;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+        }
+
+
+        /* IMAGE SIZE */
+
+        .recipe-image {
+            width: 180px;
+            height: 130px;
+
+            margin-bottom: 15px;
+
+            overflow: hidden;
+
+            border-radius: 10px;
+        }
+
+        .recipe-image img {
+            width: 180px;
+            height: 130px;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+
+        /* ================= RECIPE CONTENT ================= */
+
+        .recipe-content {
+            width: 100%;
+            text-align: left;
+        }
+
+        .recipe-tag {
+            color: #d65a3a;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            margin-bottom: 7px;
+        }
+
+        .recipe-content h3 {
+            font-size: 20px;
+            margin-bottom: 7px;
+        }
+
+        .recipe-content p {
+            color: #666;
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            margin-bottom: 8px;
+        }
+
+        .recipe-info {
+            font-size: 13px !important;
+            color: #777 !important;
+        }
+
+
+        /* ================= VIEW BUTTON ================= */
+
+        .view-btn {
+            width: 100%;
+
+            padding: 11px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background-color: #222;
+            color: white;
+
+            cursor: pointer;
+
+            margin-top: 8px;
+        }
+
+        .view-btn:hover {
+            background-color: #d65a3a;
+        }
+
+
+        /* ================= MEAL PLANNER ================= */
+
+        .planner {
+            background-color: #fff1e8;
+
+            padding: 60px 7%;
+
+            text-align: center;
+        }
+
+        .planner h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        .meal-container {
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 20px;
+
+            max-width: 1100px;
+
+            margin: auto;
+        }
+.day-card {
+    background: #ffffff;
+
+    padding: 24px;
+
+    border-radius: 20px;
+
+    border: 1px solid #f1ddd2;
+
+    box-shadow: 0 8px 25px rgba(90, 55, 40, 0.08);
+
+    text-align: left;
+
+    transition: all 0.3s ease;
+
+    position: relative;
+}
+
+.day-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow: 0 12px 30px rgba(90, 55, 40, 0.13);
+}
+
+.day-card h3 {
+    color: #d65a3a;
+
+    font-size: 22px;
+
+    margin-bottom: 18px;
+
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid #f1ddd2;
+}
+
+.day-card select {
+    width: 100%;
+
+    padding: 12px 13px;
+
+    margin-bottom: 12px;
+
+    border: 1px solid #eadbd3;
+
+    border-radius: 12px;
+
+    background-color: #fffaf7;
+
+    color: #555;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+.day-card select:hover {
+    border-color: #d65a3a;
+}
+
+.day-card select:focus {
+    border-color: #d65a3a;
+
+    box-shadow: 0 0 0 3px rgba(214, 90, 58, 0.08);
+}
+        .day-card h3 {
+            color: #d65a3a;
+            margin-bottom: 15px;
+        }
+
+        .day-card p {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+
+        /* ================= ABOUT ================= */
+
+        .about {
+            padding: 70px 20px;
+
+            text-align: center;
+
+            background-color: white;
+        }
+
+        .about h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .about p {
+            max-width: 700px;
+
+            margin: auto;
+
+            color: #666;
+
+            line-height: 1.7;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background-color: #222;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 25px;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 900px) {
+
+            .recipe-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .meal-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            nav ul {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 35px;
+            }
+
+            .recipe-container {
+                grid-template-columns: 1fr;
+            }
+
+            .meal-container {
+                grid-template-columns: 1fr;
+            }
+
+        }
+/* ================= RECIPE POPUP ================= */
+
+.recipe-modal {
+    display: none;
+
+    position: fixed;
+    z-index: 1000;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0,0,0,0.55);
+
+    justify-content: center;
+    align-items: center;
+}
+
+
+.recipe-box {
+    background-color: white;
+
+    width: 500px;
+    max-width: 90%;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    position: relative;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+
+.recipe-box h2 {
+    color: #d65a3a;
+
+    margin-bottom: 20px;
+
+    font-size: 28px;
+}
+
+
+.recipe-box h3 {
+    margin-top: 15px;
+    margin-bottom: 8px;
+
+    color: #333;
+}
+
+
+.recipe-box p {
+    color: #666;
+
+    line-height: 1.6;
+
+    font-size: 15px;
+}
+
+
+.close-btn {
+    position: absolute;
+
+    right: 20px;
+    top: 12px;
+
+    font-size: 30px;
+
+    color: #555;
+
+    cursor: pointer;
+}
+
+
+.close-btn:hover {
+    color: #d65a3a;
+}
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav>
+
+        <div class="logo">
+    <a href="#">
+        <img src="foodielogo.png" alt="Foodie Logo">
+    </a>
+</div>
+
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#recipes">Recipes</a></li>
+            <li><a href="#planner">Meal Planner</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+
+        <button class="login-btn">
+            Get Started
+        </button>
+
+    </nav>
+
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <h1>
+            Plan your meals.
+            <span>Enjoy your food.</span>
+        </h1>
+
+        <p>
+            Discover delicious recipes and plan your weekly meals easily.
+        </p>
+
+        <button onclick="document.getElementById('recipes').scrollIntoView({behavior:'smooth'})">
+            Explore Recipes
+        </button>
+
+    </section>
+
+
+
+    <!-- ================= SEARCH ================= -->
+
+    <section class="search-section">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Search your favourite recipe..."
+            onkeyup="searchRecipe()"
+        >
+
+    </section>
+
+
+
+    <!-- ================= CATEGORY ================= -->
+
+    <div class="categories">
+
+        <button class="category-btn" onclick="filterRecipes('all')">
+            🍽 All
+        </button>
+
+        <button class="category-btn" onclick="filterRecipes('breakfast')">
+            🍳 Breakfast
+        </button>
+
+        <button class="category-btn" onclick="filterRecipes('lunch')">
+            🥗 Lunch
+        </button>
+
+        <button class="category-btn" onclick="filterRecipes('dinner')">
+            🍝 Dinner
+        </button>
+
+        <button class="category-btn" onclick="filterRecipes('dessert')">
+            🍰 Dessert
+        </button>
+
+    </div>
+
+
+
+    <!-- ================= RECIPES ================= -->
+
+    <section class="recipes-section" id="recipes">
+
+        <div class="section-small-title">
+            OUR RECIPES
+        </div>
+
+        <h2>
+            Popular Recipes
+        </h2>
+
+
+        <div class="recipe-container" id="recipeContainer">
+
+
+            <!-- 1. BERRY PANCAKES -->
+
+            <div class="recipe-card" data-category="breakfast">
+
+                <div class="recipe-image">
+                    <img src="Berries.jpg"
+                         alt="Berry Pancakes"
+                         width="180"
+                         height="130">
+                </div>
+
+                <div class="recipe-content">
+
+                    <div class="recipe-tag">
+                        BREAKFAST
+                    </div>
+
+                    <h3>
+                        Berry Pancakes
+                    </h3>
+
+                    <p>
+                        Fluffy pancakes topped with fresh berries.
+                    </p>
+
+                    <p class="recipe-info">
+                        ⏱ 20 min &nbsp; ⭐ 4.8
+                    </p>
+
+                    <button class="view-btn"
+                        onclick="showRecipe('Berry Pancakes')">
+                        View Recipe
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 2. GARDEN BOWL -->
+
+            <div class="recipe-card" data-category="lunch">
+
+                <div class="recipe-image">
+                    <img src="garden bowl.jpg"
+                         alt="Fresh Garden Bowl"
+                         width="180"
+                         height="130">
+                </div>
+
+                <div class="recipe-content">
+
+                    <div class="recipe-tag">
+                        LUNCH
+                    </div>
+
+                    <h3>
+                        Fresh Garden Bowl
+                    </h3>
+
+                    <p>
+                        Healthy vegetables with a delicious dressing.
+                    </p>
+
+                    <p class="recipe-info">
+                        ⏱ 15 min &nbsp; ⭐ 4.7
+                    </p>
+
+                    <button class="view-btn"
+                        onclick="showRecipe('Fresh Garden Bowl')">
+                        View Recipe
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 3. CREAMY PASTA -->
+
+            <div class="recipe-card" data-category="dinner">
+
+                <div class="recipe-image">
+                    <img src="pasta.jpg"
+                         alt="Creamy Pasta"
+                         width="180"
+                         height="130">
+                </div>
+
+                <div class="recipe-content">
+
+                    <div class="recipe-tag">
+                        DINNER
+                    </div>
+
+                    <h3>
+                        Creamy Pasta
+                    </h3>
+
+                    <p>
+                        Creamy pasta with herbs and fresh vegetables.
+                    </p>
+
+                    <p class="recipe-info">
+                        ⏱ 25 min &nbsp; ⭐ 4.9
+                    </p>
+
+                    <button class="view-btn"
+                        onclick="showRecipe('Creamy Pasta')">
+                        View Recipe
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 4. STRAWBERRY DESSERT -->
+
+            <div class="recipe-card" data-category="dessert">
+
+                <div class="recipe-image">
+                    <img src="strawberry.jpg"
+                         alt="Strawberry Dessert"
+                         width="180"
+                         height="130">
+                </div>
+
+                <div class="recipe-content">
+
+                    <div class="recipe-tag">
+                        DESSERT
+                    </div>
+
+                    <h3>
+                        Strawberry Dessert
+                    </h3>
+
+                    <p>
+                        Sweet and creamy strawberry dessert.
+                    </p>
+
+                    <p class="recipe-info">
+                        ⏱ 15 min &nbsp; ⭐ 4.8
+                    </p>
+
+                    <button class="view-btn"
+                        onclick="showRecipe('Strawberry Dessert')">
+                        View Recipe
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 5. MASALA DOSA -->
+
+            <div class="recipe-card" data-category="breakfast">
+
+                <div class="recipe-image">
+                    <img src="dosa.jpg"
+                         alt="Masala Dosa"
+                         width="180"
+                         height="130">
+                </div>
+
+                <div class="recipe-content">
+
+                    <div class="recipe-tag">
+                        BREAKFAST
+                    </div>
+
+                    <h3>
+                        Masala Dosa
+                    </h3>
+
+                    <p>
+                        Crispy dosa served with tasty potato masala.
+                    </p>
+
+                    <p class="recipe-info">
+                        ⏱ 30 min &nbsp; ⭐ 4.9
+                    </p>
+
+                    <button class="view-btn"
+                        onclick="showRecipe('Masala Dosa')">
+                        View Recipe
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 6. PANEER TIKKA -->
+
+            <div class="recipe-card" data-category="lunch">
+
+                <div class="recipe-image">
+                    <img src="Paneertikka.jpg"
+                         alt="Paneer Tikka"
+                         width="180"
+                         height="130">
+                </div>
+
+                <div class="recipe-content">
+
+                    <div class="recipe-tag">
+                        LUNCH
+                    </div>
+
+                    <h3>
+                        Paneer Tikka
+                    </h3>
+
+                    <p>
+                        Spicy grilled paneer with delicious Indian flavours.
+                    </p>
+
+                    <p class="recipe-info">
+                        ⏱ 25 min &nbsp; ⭐ 4.8
+                    </p>
+
+                    <button class="view-btn"
+                        onclick="showRecipe('Paneer Tikka')">
+                        View Recipe
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 7. NAAN -->
+
+            <div class="recipe-card" data-category="lunch">
+
+                <div class="recipe-image">
+                    <img src="naan.jpg"
+                         alt="Naan"
+                         width="180"
+                         height="130">
+                </div>
+
+                <div class="recipe-content">
+
+                    <div class="recipe-tag">
+                        LUNCH
+                    </div>
+
+                    <h3>
+                        Butter Naan
+                    </h3>
+
+                    <p>
+                        Soft and delicious naan perfect with curry.
+                    </p>
+
+                    <p class="recipe-info">
+                        ⏱ 20 min &nbsp; ⭐ 4.7
+                    </p>
+
+                    <button class="view-btn"
+                        onclick="showRecipe('Butter Naan')">
+                        View Recipe
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 8. PANI PURI -->
+
+            <div class="recipe-card" data-category="lunch">
+
+                <div class="recipe-image">
+                    <img src="Panipuri.jpg"
+                         alt="Pani Puri"
+                         width="180"
+                         height="130">
+                </div>
+
+                <div class="recipe-content">
+
+                    <div class="recipe-tag">
+                        SNACK
+                    </div>
+
+                    <h3>
+                        Pani Puri
+                    </h3>
+
+                    <p>
+                        Crispy puris filled with spicy and tangy water.
+                    </p>
+
+                    <p class="recipe-info">
+                        ⏱ 20 min &nbsp; ⭐ 4.9
+                    </p>
+
+                    <button class="view-btn"
+                        onclick="showRecipe('Pani Puri')">
+                        View Recipe
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 9. MOMOS -->
+
+            <div class="recipe-card" data-category="lunch">
+
+                <div class="recipe-image">
+                    <img src="momo.jpg"
+                         alt="Momos"
+                         width="180"
+                         height="130">
+                </div>
+
+                <div class="recipe-content">
+
+                    <div class="recipe-tag">
+                        SNACK
+                    </div>
+
+                    <h3>
+                        Momos
+                    </h3>
+
+                    <p>
+                        Soft steamed momos served with spicy chutney.
+                    </p>
+
+                    <p class="recipe-info">
+                        ⏱ 25 min &nbsp; ⭐ 4.8
+                    </p>
+
+                    <button class="view-btn"
+                        onclick="showRecipe('Momos')">
+                        View Recipe
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 10. RASMALAI -->
+
+            <div class="recipe-card" data-category="dessert">
+
+                <div class="recipe-image">
+                    <img src="Ras Malai.jpg"
+                         alt="Rasmalai"
+                         width="180"
+                         height="130">
+                </div>
+
+                <div class="recipe-content">
+
+                    <div class="recipe-tag">
+                        DESSERT
+                    </div>
+
+                    <h3>
+                        Rasmalai
+                    </h3>
+
+                    <p>
+                        Soft milk dumplings soaked in sweet creamy milk.
+                    </p>
+
+                    <p class="recipe-info">
+                        ⏱ 35 min &nbsp; ⭐ 4.9
+                    </p>
+
+                    <button class="view-btn"
+                        onclick="showRecipe('Rasmalai')">
+                        View Recipe
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- 11. CHOCOLATE CAKE -->
+
+            <div class="recipe-card" data-category="dessert">
+
+                <div class="recipe-image">
+                    <img src="choco.jpg"
+                         alt="Chocolate Cake"
+                         width="180"
+                         height="130">
+                </div>
+
+                <div class="recipe-content">
+
+                    <div class="recipe-tag">
+                        DESSERT
+                    </div>
+
+                    <h3>
+                        Chocolate Cake
+                    </h3>
+
+                    <p>
+                        Soft and rich chocolate cake for sweet cravings.
+                    </p>
+
+                    <p class="recipe-info">
+                        ⏱ 40 min &nbsp; ⭐ 4.9
+                    </p>
+
+                    <button class="view-btn"
+                        onclick="showRecipe('Chocolate Cake')">
+                        View Recipe
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= MEAL PLANNER ================= -->
+
+    <section class="planner" id="planner">
+
+        <h2>
+            Weekly Meal Planner
+        </h2>
+
+        <div class="meal-container">
+
+
+            <div class="day-card">
+
+
+    <h3>Monday</h3>
+
+    <select onchange="changeMeal(this, 'monday-breakfast')">
+        <option>🍳 Breakfast - Pancakes</option>
+        <option>🍳 Breakfast - Masala Dosa</option>
+        <option>🍳 Breakfast - Naan</option>
+    </select>
+
+    <select onchange="changeMeal(this, 'monday-lunch')">
+        <option>🥗 Lunch - Garden Bowl</option>
+        <option>🥗 Lunch - Paneer Tikka</option>
+        <option>🥗 Lunch - Pani Puri</option>
+    </select>
+
+    <select onchange="changeMeal(this, 'monday-dinner')">
+        <option>🍝 Dinner - Creamy Pasta</option>
+        <option>🍝 Dinner - Paneer Tikka</option>
+        <option>🍝 Dinner - Naan</option>
+    </select>
+
+</div>
+
+
+<div class="day-card">
+
+    <h3>Tuesday</h3>
+
+    <select onchange="changeMeal(this, 'tuesday-breakfast')">
+        <option>🍳 Breakfast - Masala Dosa</option>
+        <option>🍳 Breakfast - Pancakes</option>
+        <option>🍳 Breakfast - Naan</option>
+    </select>
+
+    <select onchange="changeMeal(this, 'tuesday-lunch')">
+        <option>🥗 Lunch - Paneer Tikka</option>
+        <option>🥗 Lunch - Garden Bowl</option>
+        <option>🥗 Lunch - Momos</option>
+    </select>
+
+    <select onchange="changeMeal(this, 'tuesday-dinner')">
+        <option>🍝 Dinner - Naan & Curry</option>
+        <option>🍝 Dinner - Creamy Pasta</option>
+        <option>🍝 Dinner - Paneer Tikka</option>
+    </select>
+
+</div>
+
+
+<div class="day-card">
+
+    <h3>Wednesday</h3>
+
+    <select onchange="changeMeal(this, 'wednesday-breakfast')">
+        <option>🍳 Breakfast - Pancakes</option>
+        <option>🍳 Breakfast - Masala Dosa</option>
+        <option>🍳 Breakfast - Naan</option>
+    </select>
+
+    <select onchange="changeMeal(this, 'wednesday-lunch')">
+        <option>🥗 Lunch - Pani Puri</option>
+        <option>🥗 Lunch - Paneer Tikka</option>
+        <option>🥗 Lunch - Garden Bowl</option>
+    </select>
+
+    <select onchange="changeMeal(this, 'wednesday-dinner')">
+        <option>🍝 Dinner - Creamy Pasta</option>
+        <option>🍝 Dinner - Naan & Curry</option>
+        <option>🍝 Dinner - Paneer Tikka</option>
+    </select>
+
+</div>
+
+
+<div class="day-card">
+
+    <h3>Thursday</h3>
+
+    <select onchange="changeMeal(this, 'thursday-breakfast')">
+        <option>🍳 Breakfast - Masala Dosa</option>
+        <option>🍳 Breakfast - Pancakes</option>
+        <option>🍳 Breakfast - Naan</option>
+    </select>
+
+    <select onchange="changeMeal(this, 'thursday-lunch')">
+        <option>🥗 Lunch - Momos</option>
+        <option>🥗 Lunch - Pani Puri</option>
+        <option>🥗 Lunch - Paneer Tikka</option>
+    </select>
+
+    <select onchange="changeMeal(this, 'thursday-dinner')">
+        <option>🍰 Dessert - Rasmalai</option>
+        <option>🍰 Dessert - Chocolate Cake</option>
+        <option>🍝 Dinner - Creamy Pasta</option>
+    </select>
+
+</div>        </div>
+
+    </section>
+
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section class="about" id="about">
+
+        <h2>
+            About Foodie
+        </h2>
+
+        <p>
+            Foodie is a simple digital recipe and meal planner website
+            designed to help users discover delicious recipes and organize
+            their weekly meals easily. Search recipes, filter them by
+            category and plan your meals in one place.
+        </p>
+
+    </section>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            © 2026 Foodie | Digital Recipe & Meal Planner
+        </p>
+
+    </footer>
+
+
+<!-- Recipe Popup -->
+
+<div id="recipeModal" class="recipe-modal">
+
+    <div class="recipe-box">
+
+        <span class="close-btn" onclick="closeRecipe()">&times;</span>
+
+        <h2 id="modalTitle">Recipe Name</h2>
+
+        <h3>Ingredients</h3>
+
+        <p id="modalIngredients"></p>
+
+        <h3>Instructions</h3>
+
+        <p id="modalInstructions"></p>
+
+    </div>
+
+</div>
+       <script src="script.js"></script>
+
+</body>
+
+</html>
